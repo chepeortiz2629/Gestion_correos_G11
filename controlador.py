@@ -1,9 +1,12 @@
 from dataclasses import replace
 from datetime import datetime
 import sqlite3
-
 from flask import flash
-#import envioemail
+import envioemail
+
+#############################################################
+############ funcion para conectar base de datos ############
+#############################################################
 
 DB_NAME='bdgestion.s3db'
 
@@ -11,24 +14,33 @@ def conectar_db():
     conn=sqlite3.connect(DB_NAME)
     return conn
 
+##############################################################
+################ funcion para registrar ######################
+##############################################################
+
 def insertar_usuarios(nombre,apellido,usuario,passwd):
     cod_ver=str(datetime.now())
     cod_ver=cod_ver.replace("-","")
     cod_ver=cod_ver.replace(" ","")
     cod_ver=cod_ver.replace(":","")
     cod_ver=cod_ver.replace(".","")
-    
+
+        
     #flash(cod_ver)   
     try:
         db=conectar_db()
         cursor=db.cursor()
         sql="INSERT INTO usuarios(nombre,apellido,usuario,passw,cod_verificacion,verificado,id_rol) VALUES(?,?,?,?,?,?,?)"
-        cursor.execute(sql,[nombre,apellido,usuario,passwd,cod_ver,0,1])
+        cursor.execute(sql,[nombre,apellido,usuario,passwd,cod_ver,False,1])
         db.commit()
-       # envioemail.enviar_email(usuario,cod_ver)
+        envioemail.enviar_email(usuario,cod_ver)
         return True
     except:
         return False
+
+##############################################################
+################ funcion validar login #######################
+##############################################################
 
 def validar_usuarios(username):
     try:
@@ -61,10 +73,19 @@ def activar_usuario(username,codver):
         sql='UPDATE usuarios SET verificado=1 WHERE usuario=? AND cod_verificacion=?'
         cursor.execute(sql,[username,codver])
         db.commit()
-        return True      
+        sql1='SELECT * FROM usuario WHERE usuario=? AND cod_verificacion=?'
+        cursor.execute(sql1,[username,codver])
+        resultado=cursor.fetchone()
+        if resultado != None:
+            return 'SI'    
+        else:
+            return 'NO'      
     except:
         return False
 
+##############################################################
+########## funcion para listar mensajeria por tipo ###########
+##############################################################
 
 def listar_mensajes(tipo,username):
     listamensajeria=[]
@@ -72,15 +93,16 @@ def listar_mensajes(tipo,username):
     try:
         db=conectar_db()
         cursor=db.cursor()
-        sql="SELECT * FROM mensajeria ORDER BY fecha DESC"
+        
         if tipo==1:
+            sql="SELECT * FROM mensajeria ORDER BY fecha DESC"
             cursor.execute(sql)
         else:    
             sql="SELECT *FROM mensajeria WHERE remitente=? OR destinatario=? ORDER BY fecha DESC"
             cursor.execute(sql,[username,username])
-       
+        
         resultado=cursor.fetchall()
-               
+                
         for m in resultado:
             tipo=''
             if m[1]==username:
@@ -136,7 +158,9 @@ def lista_gral_usuarios():
 
     return listausuarios
 
-
+##############################################################
+########## funcion cargar usuarios en mensajeria #############
+##############################################################
 
 def listar_usuarios(username):
     try:
@@ -160,6 +184,9 @@ def listar_usuarios(username):
     except:
         return False    
 
+##############################################################
+################### Crear y enviar mensaje ###################
+##############################################################
 
 def insertar_mensajes(rem,dest,asunto,cuerpo):
     
