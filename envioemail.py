@@ -4,7 +4,7 @@ import smtplib
 
 def enviar_email(email_destino,codigo):
     remitente="jortizh@uninorte.edu.co"
-    password="1rm2n312021JH"
+    password=" "
     destinatario=email_destino
     mensaje="hola mundo"
     email=EmailMessage()

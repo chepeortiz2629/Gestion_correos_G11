@@ -29,17 +29,17 @@
     <div class="offcanvas-body">
         <hr>
         <div class="usuario">
-            <img src="https://picsum.photos/id/1005/367/267" alt="">
-          <p>{{ session['nombre'] }}</p>
+            <img src="/static/img/Usuario.png" width="200" height="200" class="rounded mx-auto d-block" alt="Responsive image">
+          <p><h4 style="color: cadetblue;">{{ session['nombre'].upper() }}</h4></p>
           <p id="login_username" value="{{ session['username'] }}">{{ session['username'] }}</p>
         </div>
         <hr>
 
         <div class="d-grid gap-2">
-            <a href="#" class="boton seleccionado"><i class="bi bi-house"></i>Gestion de Cuenta</a>
-            <a onclick="" href="#" class="boton"><i class="bi bi-person"></i>Gestion
-                Mensajes</a>
-            <a onclick="" href="#" class="boton"><i class="bi bi-person"></i>Cambiar Contraseña</a>
+            <a href="#" class="boton seleccionado" style="color: black;"><i class="bi bi-list"></i>  Gestion de Cuenta</a>
+            <hr>
+            <a onclick="" href="#" class="boton" style="color: black;"><i class="bi bi-person"></i>  Cambiar Contraseña</a>
+            <hr>
            
           <!--
             <a onclick="" href="#" class="boton"><i class="bi bi-person"></i>Gestion
@@ -64,7 +64,7 @@
         </div>
        -->
         <div class="d-grid gap-2">
-            <a href="{{url_for('login')}}" class="boton seleccionado"><i class="bi-house"></i>Salir</a>
+            <a href="{{url_for('login')}}" class="boton seleccionado" style="color: black;"><i class="bi-house"></i>  Salir</a>
         
         </div>
 

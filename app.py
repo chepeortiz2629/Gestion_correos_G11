@@ -56,6 +56,7 @@ def val_user():
     passwd=datos['password']
     if username=='' or passwd=='':
         flash('Datos Incompletos')
+        
     else:
         resultado=controlador.validar_usuarios(username)
         if resultado==False:
@@ -77,6 +78,8 @@ def val_user():
 
             else:
                 return redirect(url_for('verificar'))
+    return redirect(url_for('login'))
+    
 
 ############################ enviar mensajes ###########################
 
@@ -116,7 +119,7 @@ def listar_mensajes():
     resultado=controlador.listar_mensajes(1,'')
     return jsonify(resultado)
 
-#######################
+####################### cargar mensajes usuario activo ##############
 
 @app.route('/listamensindv', methods=['GET','POST'])
 def listar_mens_ind():

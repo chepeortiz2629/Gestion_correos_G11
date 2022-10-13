@@ -12,11 +12,11 @@
               <!-- Nested Row within Card Body -->
               <div class="row">
                 <div class="col-lg-6 d-none d-lg-block ">
-                  <img src="https://www.g20-insights.org/wp-content/uploads/2018/07/logo-un.png" class="img-fluid" alt="Responsive image" ></div>
+                  <img src="/static/img/Imagen.png" class="img-fluid" alt="Responsive image" ></div>
                 <div class="col-lg-6">
                   <div class="p-5">
                     <div class="text-center">
-                      <h1 class="h4 text-gray-900 mb-4">Bienvenido</h1>
+                      <h1 class="h4 text-gray-900 mb-4"> Ingresar </h1>
                     </div>
                     <form class="user" action="/validarlogin" method="post">
                       <div class="form-group mb-3">
@@ -33,16 +33,18 @@
                         </div>
                       </div>
                       
-                      <button class="btn btn-outline-secondary" id="alertas" type="submit">Ingresar</button>
+                      <button class="btn btn-dark btn-outline-secondary" id="alertas" type="submit" style="color: white;">Ingresar</button>
 
                      
                     </form>
-                   
+                   <hr>
                     <div class="text-center">
-                      <a class="small" href="{{ url_for('registro') }}">Registrarse</a>
+                      
+                      <a class="small" href="{{ url_for('registro') }}" style="color: black;"><h6> Registrarse </h6></a>
                     </div>
+                    <hr>
                     <div class="text-center">
-                      <a class="small" href="{{ url_for('recuperar') }}">Olvide mi Contraseña</a>
+                      <a class="small" href="{{ url_for('recuperar') }}" style="color: black;"><h6>Olvide mi Contraseña</h6></a>
                     </div>
 
                     
