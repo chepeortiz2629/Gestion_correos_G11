@@ -106,6 +106,7 @@ def activar_cuenta():
     username=datos['username']
     codver=datos['codverificacion']
     resultado=controlador.activar_usuario(username,codver)
+    print("esto sale "+str(resultado))
     if resultado=="SI":
         flash('Cuenta Activada Satisfactoriamente')    
     else:
