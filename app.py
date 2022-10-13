@@ -235,6 +235,13 @@ def restablecer(usuario=None):
 def mensajes():
     return render_template('mensajes.html')   
 
+@app.before_request
+def proteger_rutas():
+    ruta=request.path
+
+    if not 'username' in session and (ruta=='/menu' or ruta=='/mensajeria'):
+        flash('Por favor debe loguearse en el sistema')
+        return redirect('/login')
 
 if __name__=='__main__':
     app.run(debug=True)
