@@ -91,10 +91,10 @@ def enviar_mesanjes():
     destinatario=datos['destinatario']
     cuerpo=datos['cuerpo']
     resultado=controlador.insertar_mensajes(remitente,destinatario,asunto,cuerpo)
-    if resultado:
+    if resultado=="SI":
         flash('Mensaje Enviado Correctamente')
     else:
-        flash('Error en el Envio')   
+        flash('Falta asunto y/o cuerpo')   
     listadouser=controlador.listar_usuarios(remitente)    
     return render_template('mensajeria.html',datauser=listadouser)
 

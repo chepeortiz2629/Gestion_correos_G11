@@ -191,13 +191,16 @@ def listar_usuarios(username):
 def insertar_mensajes(rem,dest,asunto,cuerpo):
     
     try:
-        db=conectar_db()
-        cursor=db.cursor()
-        sql="INSERT INTO mensajeria(remitente,destinatario,asunto,mensaje) VALUES(?,?,?,?)"
-        cursor.execute(sql,[rem,dest,asunto,cuerpo])
-        db.commit()
+        if asunto=='' or cuerpo=='':
+            return "NO"
+        else:
+            db=conectar_db()
+            cursor=db.cursor()
+            sql="INSERT INTO mensajeria(remitente,destinatario,asunto,mensaje) VALUES(?,?,?,?)"
+            cursor.execute(sql,[rem,dest,asunto,cuerpo])
+            db.commit()
         
-        return True
+            return "SI"
     except:
         return False
 
@@ -209,7 +212,7 @@ def validar_email(username):
         cursor.execute(sql,[username])
         resultado=cursor.fetchone()
         if resultado!=None:
-          #  envioemail.recuperar_email(username)
+            #envioemail.recuperar_email(username)
             return 'SI'
         else:
             return 'NO'    
