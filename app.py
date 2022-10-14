@@ -31,7 +31,7 @@ def add_registro():
     p2=datos['pass2']
         
     p1enc=generate_password_hash(p1)
-    if nom=='' and ape=='' and usu=='' and p1=='' and p2=='':
+    if nom=='' or ape=='' or usu=='' or p1=='' or p2=='':
         flash('Datos Imcompletos')
     elif p1!=p2:
         flash("Las Contraseñas no Coinciden")    
